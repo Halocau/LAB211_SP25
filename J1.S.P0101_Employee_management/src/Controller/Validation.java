@@ -71,7 +71,7 @@ public class Validation {
 
     public static String inputStringName(String msg) {
         while (true) {
-            String validName = "[a-zA-Z ]+|$";// only contain letter and space
+            String validName = "^[a-zA-Z ]+$";// only contain letter and space
             String input = inputString(msg);
             if (!input.matches(validName)) {
                 System.err.println("Please use only letters");
@@ -84,7 +84,7 @@ public class Validation {
 
     public static String inputPhone(String msg) {
         while (true) {
-            String validPhone = "[0-9]+|$";
+            String validPhone = "^[0-9]+$";
             String input = inputString(msg);
             if (!input.matches(validPhone)) {
                 System.err.println("Please use only number");

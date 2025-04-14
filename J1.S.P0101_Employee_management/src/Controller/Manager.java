@@ -20,9 +20,9 @@ public class Manager {
 
     public static ArrayList<Employee> SearchEmployeeByName(String input, ArrayList<Employee> listEmployee) {
         ArrayList<Employee> search = new ArrayList<>();
-        String searchName = input.replaceAll("\\s+", "").toLowerCase();
+        String searchName = input.trim().toLowerCase(); // giữ dấu cách để khớp tốt hơn
         for (Employee emp : listEmployee) {
-            String fullName = emp.getFirstName() + emp.getLastName();
+            String fullName = (emp.getFirstName() +" "+ emp.getLastName()).toLowerCase().trim();
             if (fullName.contains(searchName)) {
                 search.add(emp);
             }
