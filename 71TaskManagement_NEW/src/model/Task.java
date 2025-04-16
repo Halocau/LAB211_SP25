@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -53,6 +54,20 @@ public class Task {
     private double planTo;
     private String assignee;
     private String reviewer;
+
+    public Task() {
+    }
+
+    public Task(int Id, TaskType taskTypeID, String requirementName, Date date, double planForm, double planTo, String assignee, String reviewer) {
+        this.Id = Id;
+        this.taskTypeID = taskTypeID;
+        this.requirementName = requirementName;
+        this.date = date;
+        this.planForm = planForm;
+        this.planTo = planTo;
+        this.assignee = assignee;
+        this.reviewer = reviewer;
+    }
 
     public int getId() {
         return Id;
@@ -119,17 +134,17 @@ public class Task {
     }
 
     @Override
-
     public String toString() {
-        return String.format("%-10s %-10s %-10s %-10s %-10s %-10s %-10s %-10s",
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String formatDate = sdf.format(date);
+        double time = getPlanTo() - getPlanForm();
+        return String.format("%-5d %-15s %-15s %-15s %-10.1f %-10s %-10s",
                 Id,
                 requirementName,
                 taskTypeID,
-                date,
-                planForm,
-                planTo,
+                formatDate,
+                time,
                 assignee,
                 reviewer);
     }
-
 }

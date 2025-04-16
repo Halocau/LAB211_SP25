@@ -23,28 +23,42 @@ public class TaskController {
         taskManager = new TaskManager();
     }
 
+    public void init() {
+        taskManager.initData();
+    }
+
     public Task addTask() {
         taskInputer = new TaskInputer();
         Task t = taskInputer.inputInformation();
-        taskManager.addTask(t);
-        return t;
+        boolean overlap = taskManager.isOverlap(t.getDate(), t.getAssignee(), t.getPlanForm(), t.getPlanTo());
+        if (overlap) {
+            System.err.println("Overlap task");
+            return null;
+        } else {
+            taskManager.addTask(t);
+            System.out.println("Add succesfully");
+            return t;
+        }
+
     }
-    public void displayTask(){
+
+    public void displayTask() {
         taskManager.displayTask();
     }
 
     public Task deleteTask() {
-    taskInputer = new TaskInputer();
-    int id = taskInputer.deleteInputById();
-    try {
-        Task deletedTask = taskManager.deleteTask(id);
-        System.out.println("Delete successfully: " + deletedTask.getRequirementName());
-        return deletedTask;
-    } catch (Exception ex) {
-        Logger.getLogger(TaskController.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
+        taskInputer = new TaskInputer();
+        int id = taskInputer.deleteInputById();
+        try {
+            Task deleted = taskManager.deleteTask(id);
+            if (deleted != null) {
+                System.out.println("Deleted task successfully.");
+            }
+            return deleted;
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+            return null;
+        }
     }
-}
 
-    
 }

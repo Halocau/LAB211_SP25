@@ -15,6 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         TaskController taskController = new TaskController();
+        taskController.init();
         while (true) {
             System.out.println("");
             String menu = ("====== Task program ======\n"

@@ -29,7 +29,7 @@ public class TaskInputer {
 
         task.setDate(valid.getDate("Date: ", "Please input must be in format dd-MM-yyyy", "\\d{1,2}[-]\\d{1,2}[-]\\d{1,4}"));
         task.setPlanForm(valid.getDouble("From: ", "Number only!", "Out of range 8 -> 17", 8, 17));
-        task.setPlanTo(valid.getDouble("To: ", "Number only!", "Out of range 8 -> 17", (task.getPlanForm() + 0.5), 17.5));
+        task.setPlanTo(valid.getDouble("To: ", "Number only!", "Out of range 8 -> 17.5", (task.getPlanForm() + 0.5), 17.5));
         task.setAssignee(valid.getStringByRegex("Assignee: ", "Please enter character only!", "[a-zA-Z ]+"));
         task.setReviewer(valid.getStringByRegex("Reviewer: ", "Please enter character only!", "[a-zA-Z ]+"));
         return task;
