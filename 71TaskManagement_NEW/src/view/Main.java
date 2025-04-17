@@ -36,7 +36,7 @@ public class Main {
                     taskController.displayTask();
                     break;
                 case 4:
-                    return;
+                    System.exit(0);
                 default:
                     throw new AssertionError();
             }

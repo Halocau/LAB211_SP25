@@ -51,9 +51,7 @@ public class TaskController {
         int id = taskInputer.deleteInputById();
         try {
             Task deleted = taskManager.deleteTask(id);
-            if (deleted != null) {
-                System.out.println("Deleted task successfully.");
-            }
+            System.out.println("Deleted task successfully.");
             return deleted;
         } catch (Exception e) {
             System.err.println("Exception: " + e.getMessage());
