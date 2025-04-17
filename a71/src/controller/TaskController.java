@@ -7,6 +7,7 @@ package controller;
 import bo.TaskInputer;
 import bo.TaskManager;
 import model.Task;
+import utils.ValidationAndNormalizationTextUtil;
 
 /**
  *
@@ -24,17 +25,23 @@ public class TaskController {
     public Task addTask() throws Exception {
         taskInputer = new TaskInputer();
         Task t = taskInputer.inputInformation();
-        taskManager.addTask(t);
-        return t;
+        if (taskManager.addTask(t)) {
+            return t;
+        }
+        return null;
     }
 
     public Task deleteTask() throws Exception {
-        taskInputer = new TaskInputer();
-        return taskManager.deleteTask(taskInputer.inputId());
+        taskManager.checkEmpty();
+        int id = ValidationAndNormalizationTextUtil.getInt("ID: ", "Number only!", "Out of range", Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return taskManager.deleteTask(id);
     }
 
-    public void getDataTasks() {
-        taskManager.showTask();
+    public String getDataTasks() {
+        return taskManager.toString();
     }
 
+    public void init(){
+        taskManager.initData();
+    }
 }

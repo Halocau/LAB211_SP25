@@ -126,7 +126,7 @@ public class Task {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String formatDate = sdf.format(date);
         double time = planTo - planFrom;
-        return String.format("%-5s %-15s %-15s %-15s %-10s %-10s %-12s",
+        return String.format("%-5s %-15s %-15s %-15s %-10s %-10s %-12s\n",
                 id,
                 requirementName,
                 taskTypeId,

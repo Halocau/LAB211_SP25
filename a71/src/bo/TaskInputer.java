@@ -35,9 +35,4 @@ public class TaskInputer {
         t.setReviewer(valid.getNonEmptyString("Reviewer: "));
         return t;
     }
-
-    public int inputId() {
-        int id = ValidationAndNormalizationTextUtil.getInt("ID: ", "Number only!", "Out of range", Integer.MIN_VALUE, Integer.MAX_VALUE);
-        return id;
-    }
 }

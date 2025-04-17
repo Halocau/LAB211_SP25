@@ -35,19 +35,18 @@ public class TaskManager {
         }
     }
 
-    public Task addTask(Task t) throws Exception {
+    public boolean addTask(Task t) throws Exception {
         if (isOverlap(t.getDate(), t.getAssignee(), t.getPlanFrom(), t.getPlanTo())) {
             throw new Exception("Task is overlapping with existing task");
         }
-        t.setId(++lastId);
-        listTask.add(t);
-        return t;
+        if (checkFromAndTo(t.getPlanFrom(), t.getPlanTo())) {
+            throw new Exception("Task invalid. Task must planFrom < planTo");
+        }
+        t.setId(++lastId);//tức là tăng trước rồi gán
+        return listTask.add(t);
     }
 
     public Task deleteTask(int id) throws Exception {
-        if(listTask.isEmpty()){
-            throw new Exception("List task empty !!");
-        }
         int index = searchById(id);
         if (index != -1) {
             return listTask.remove(index);
@@ -55,21 +54,30 @@ public class TaskManager {
         throw new Exception("Id not exist in the system");
     }
 
-    public void showTask() {
-        initData();
-        System.out.println("------------- Task -------------");
-        System.out.printf("%-5s %-15s %-15s %-15s %-10s %-10s %-12s\n",
-                "ID",
-                "Name",
-                "TaskType",
-                "Date",
-                "Time",
-                "Assignee",
-                "Reviewer");
-        for (Task show : listTask) {
-            System.out.println(show);
+    public void checkEmpty() throws Exception {
+        if (listTask.isEmpty()) {
+            throw new Exception("List task empty !!");
         }
+    }
 
+    @Override
+    public String toString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String display = String.format("%-5s %-15s %-15s %-15s %-10s %-10s %-12s\n",
+                "ID", "Name", "TaskType", "Date", "Time", "Assignee", "Reviewer");
+        for (Task t : listTask) {
+            String formatDate = sdf.format(t.getDate());
+            double time = t.getPlanTo() - t.getPlanFrom();
+            display += String.format("%-5s %-15s %-15s %-15s %-10s %-10s %-12s\n",
+                    t.getId(),
+                    t.getRequirementName(),
+                    t.getTaskTypeId(),
+                    formatDate,
+                    time,
+                    t.getAssignee(),
+                    t.getReviewer());
+        }
+        return display;
     }
 
     private int searchById(int id) {
@@ -94,7 +102,7 @@ public class TaskManager {
         return false;// no duplicate
     }
 
-    public static void main(String[] args) {
-        new TaskManager().showTask();
+    private boolean checkFromAndTo(double from, double to) {
+        return from >= to ? true : false;
     }
 }
