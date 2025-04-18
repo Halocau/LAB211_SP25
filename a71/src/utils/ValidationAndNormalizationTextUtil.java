@@ -94,7 +94,7 @@ public class ValidationAndNormalizationTextUtil {
     public static double getDouble(String mess, String errorNumberFormat, String errorOutOfRange, double min, double max) {
         while (true) {
 
-            double ret = Double.parseDouble(getStringByRegex(mess, errorNumberFormat, "[0-9]+"));
+            double ret = Double.parseDouble(getStringByRegex(mess, errorNumberFormat, "-?\\d+(\\.\\d+)?"));
             if (ret < min || ret > max) {
                 System.err.println(errorOutOfRange);
             } else {

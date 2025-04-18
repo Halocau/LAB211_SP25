@@ -30,8 +30,9 @@ public class Main {
             switch (choice) {
                 case 1: {
                     try {
-                        taskController.addTask();
+                        Task addTask = taskController.addTask();
                         System.out.println("Add Succesfully");
+                        System.out.println(addTask);
                     } catch (Exception ex) {
                         System.err.println(ex.getMessage());
                     }
